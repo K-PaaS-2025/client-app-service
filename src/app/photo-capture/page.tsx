@@ -35,36 +35,40 @@ export default function PhotoCapturePage() {
     }
   }, [isClient]);
 
-  // 카메라 권한 상태 확인
+  // 카메라 권한 상태 확인 - 직접 getUserMedia 시도로 더 확실하게 체크
   const checkCameraPermission = async () => {
     try {
-      // navigator.permissions API로 권한 상태 확인
-      if (navigator.permissions) {
-        const result = await navigator.permissions.query({ name: 'camera' as PermissionName });
-        console.log('카메라 권한 상태:', result.state);
+      console.log('카메라 권한 상태 확인 중...');
 
-        if (result.state === 'granted') {
-          // 권한이 이미 허용되어 있으면 자동으로 카메라 시작
-          console.log('권한이 이미 허용됨, 자동으로 카메라 시작');
-          requestCameraPermission();
-        } else if (result.state === 'denied') {
-          console.log('권한이 거부됨, 수동 요청 필요');
-          setState('permission');
-        } else {
-          console.log('권한 상태 불명, 수동 요청 필요');
-          setState('permission');
+      // 직접 getUserMedia를 시도해서 권한 확인
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          facingMode: 'environment'
         }
-      } else {
-        // permissions API가 지원되지 않으면 직접 시도
-        console.log('permissions API 미지원, 직접 카메라 시도');
-        try {
-          await requestCameraPermission();
-        } catch {
-          setState('permission');
+      });
+
+      console.log('권한이 이미 허용됨, 자동으로 카메라 시작');
+
+      // 스트림을 저장하고 상태 변경
+      streamRef.current = stream;
+      setState('ready');
+
+      // video 요소가 렌더링될 때까지 대기 후 스트림 설정
+      setTimeout(() => {
+        if (videoRef.current && streamRef.current) {
+          console.log('비디오 요소에 스트림 설정 중...');
+          videoRef.current.srcObject = streamRef.current;
+
+          videoRef.current.onloadedmetadata = () => {
+            console.log('비디오 메타데이터 로드 완료');
+          };
         }
-      }
+      }, 100);
+
     } catch (error) {
-      console.log('권한 확인 실패, 수동 요청 필요:', error);
+      console.log('카메라 권한 없음 또는 거부됨, 수동 요청 필요:', error);
       setState('permission');
     }
   };
