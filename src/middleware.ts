@@ -45,7 +45,7 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL('/home', request.url));
       }
 
-    } catch (error) {
+    } catch {
       // Invalid token, clear cookie and redirect to login
       const response = NextResponse.redirect(new URL('/login', request.url));
       response.cookies.delete('authToken');
@@ -64,7 +64,8 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - counseling (skip counseling page during build)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|counseling).*)',
   ],
 };

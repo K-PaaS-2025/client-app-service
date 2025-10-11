@@ -3,7 +3,6 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { auth } from "@/lib/auth";
 
 export default function Home() {
   const router = useRouter();

@@ -8,7 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import { cookies } from 'next/headers';
 import { redirect } from "next/navigation";
 
-export async function login(_: any, formData: FormData): Promise<serverActionMessage> {
+export async function login(_: serverActionMessage | null, formData: FormData): Promise<serverActionMessage> {
     const email = formData.get('email');
     const password = formData.get('password');
 
@@ -46,7 +46,7 @@ export async function login(_: any, formData: FormData): Promise<serverActionMes
     redirect('/home');
 }
 
-export async function signup(_: any, formData: FormData): Promise<serverActionMessage> {
+export async function signup(_: serverActionMessage | null, formData: FormData): Promise<serverActionMessage> {
     const email = formData.get('email');
     const password = formData.get('password');
 
