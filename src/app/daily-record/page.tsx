@@ -4,13 +4,13 @@ import { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-type CounselingState = 'permission' | 'idle' | 'recording' | 'processing' | 'playing';
+type RecordState = 'permission' | 'idle' | 'recording' | 'processing' | 'playing';
 
 export const dynamic = 'force-dynamic';
 
-export default function CounselingPage() {
+export default function DailyRecordPage() {
   const router = useRouter();
-  const [state, setState] = useState<CounselingState>('permission');
+  const [state, setState] = useState<RecordState>('permission');
   const [isClient, setIsClient] = useState(false);
   const [messageCount, setMessageCount] = useState(0);
 
@@ -121,11 +121,11 @@ export default function CounselingPage() {
               className="rounded-2xl shadow-lg"
             />
           </div>
-          <h1 className="text-3xl font-bold text-amber-900 mb-2">AI 상담</h1>
-          <p className="text-lg text-amber-700">음성으로 AI 상담사와 대화하세요</p>
+          <h1 className="text-3xl font-bold text-amber-900 mb-2">오늘 하루 기록하기</h1>
+          <p className="text-lg text-amber-700">음성으로 하루를 기록해보세요</p>
         </div>
 
-        {/* 상담 상태 표시 */}
+        {/* 상태 표시 */}
         <div className="bg-white rounded-3xl shadow-xl p-8 border border-amber-200 mb-6">
           <div className="text-center">
             {/* 상태 아이콘 */}
@@ -163,25 +163,25 @@ export default function CounselingPage() {
             <div className="mb-6">
               <h2 className="text-2xl font-bold text-amber-900 mb-2">
                 {state === 'permission' && '마이크 권한 필요'}
-                {state === 'idle' && '대화 준비'}
+                {state === 'idle' && '기록 준비'}
                 {state === 'recording' && '녹음 중...'}
-                {state === 'processing' && 'AI가 분석 중...'}
-                {state === 'playing' && 'AI 응답 재생 중...'}
+                {state === 'processing' && '처리 중...'}
+                {state === 'playing' && '녹음 재생 중...'}
               </h2>
               <p className="text-amber-700">
-                {state === 'permission' && '음성 상담을 위해 마이크 권한을 허용해주세요'}
-                {state === 'idle' && '말하기 버튼을 눌러 상담을 시작하세요'}
-                {state === 'recording' && '말씀이 끝나면 중지 버튼을 눌러주세요'}
-                {state === 'processing' && '음성을 분석하고 AI 응답을 생성하고 있습니다'}
-                {state === 'playing' && 'AI 상담사의 응답을 들어보세요'}
+                {state === 'permission' && '하루 기록을 위해 마이크 권한을 허용해주세요'}
+                {state === 'idle' && '말하기 버튼을 눌러 하루를 기록해보세요'}
+                {state === 'recording' && '오늘 하루 어떠셨는지 말씀해주세요'}
+                {state === 'processing' && '녹음을 처리하고 있습니다'}
+                {state === 'playing' && '녹음된 내용을 들어보세요'}
               </p>
             </div>
 
-            {/* 대화 횟수 */}
+            {/* 기록 횟수 */}
             {messageCount > 0 && (
               <div className="mb-6">
                 <span className="bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-lg font-medium">
-                  대화 횟수: {messageCount}
+                  기록 횟수: {messageCount}
                 </span>
               </div>
             )}
@@ -205,7 +205,7 @@ export default function CounselingPage() {
                 onClick={startRecording}
                 className="w-full font-bold text-xl py-4 px-6 rounded-2xl bg-gradient-to-r from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                🎤 말하기 시작
+                🎤 기록 시작
               </button>
             )}
 
@@ -214,7 +214,7 @@ export default function CounselingPage() {
                 onClick={stopRecording}
                 className="w-full font-bold text-xl py-4 px-6 rounded-2xl bg-gradient-to-r from-red-600 to-red-700 text-white hover:from-red-700 hover:to-red-800 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
               >
-                ⏹️ 녹음 중지
+                ⏹️ 기록 중지
               </button>
             )}
 
