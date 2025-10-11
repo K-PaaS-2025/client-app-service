@@ -28,7 +28,46 @@ export default function PhotoCapturePage() {
     setIsClient(true);
   }, []);
 
-  // 자동 권한 요청 제거 - 사용자가 버튼을 직접 클릭하도록 함
+  // 페이지 로드 시 권한 상태 확인 및 자동 카메라 시작
+  useEffect(() => {
+    if (isClient) {
+      checkCameraPermission();
+    }
+  }, [isClient]);
+
+  // 카메라 권한 상태 확인
+  const checkCameraPermission = async () => {
+    try {
+      // navigator.permissions API로 권한 상태 확인
+      if (navigator.permissions) {
+        const result = await navigator.permissions.query({ name: 'camera' as PermissionName });
+        console.log('카메라 권한 상태:', result.state);
+
+        if (result.state === 'granted') {
+          // 권한이 이미 허용되어 있으면 자동으로 카메라 시작
+          console.log('권한이 이미 허용됨, 자동으로 카메라 시작');
+          requestCameraPermission();
+        } else if (result.state === 'denied') {
+          console.log('권한이 거부됨, 수동 요청 필요');
+          setState('permission');
+        } else {
+          console.log('권한 상태 불명, 수동 요청 필요');
+          setState('permission');
+        }
+      } else {
+        // permissions API가 지원되지 않으면 직접 시도
+        console.log('permissions API 미지원, 직접 카메라 시도');
+        try {
+          await requestCameraPermission();
+        } catch {
+          setState('permission');
+        }
+      }
+    } catch (error) {
+      console.log('권한 확인 실패, 수동 요청 필요:', error);
+      setState('permission');
+    }
+  };
 
   // 카메라 권한 요청 및 스트림 시작
   const requestCameraPermission = async () => {
