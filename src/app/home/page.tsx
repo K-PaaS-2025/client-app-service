@@ -3,8 +3,6 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { auth } from "@/lib/auth";
-import { counselingAPI } from "@/api/counseling";
 
 export default function HomePage() {
   const router = useRouter();
@@ -12,39 +10,18 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const checkConsultationAndSetup = async () => {
-      // 테스트용 더미 데이터
-      const userData = {
-        email: "test@example.com",
-        loginTime: new Date().toISOString()
-      };
-      setUser(userData);
-
-      // 초기상담 여부 확인 (테스트용 - API 서버 없을 시 바로 상담 페이지로)
-      try {
-        const response = await counselingAPI.checkCounselingStatus();
-        if (response.success && response.data) {
-          if (!response.data.hasInitialCounseling) {
-            // 초기상담이 안되어 있으면 상담 페이지로 리다이렉트
-            router.push("/counseling");
-            return;
-          }
-        }
-      } catch (error) {
-        console.error("Error checking counseling status:", error);
-        // API 서버가 없는 경우 테스트를 위해 상담 페이지로 이동
-        router.push("/counseling");
-        return;
-      }
-
-      setLoading(false);
+    // 테스트용 더미 데이터
+    const userData = {
+      email: "test@example.com",
+      loginTime: new Date().toISOString()
     };
-
-    checkConsultationAndSetup();
-  }, [router]);
+    setUser(userData);
+    setLoading(false);
+  }, []);
 
   const handleLogout = () => {
-    auth.logout();
+    // 쿠키 삭제
+    document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
     router.push("/login");
   };
 

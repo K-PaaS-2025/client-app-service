@@ -8,8 +8,8 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    // 테스트를 위해 바로 홈으로 리다이렉트
-    router.push("/home");
+    // 로그인 페이지로 리다이렉트
+    router.push("/login");
   }, [router]);
 
   // 로딩 화면 (세션 확인 중)
