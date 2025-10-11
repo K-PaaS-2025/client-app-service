@@ -7,7 +7,7 @@ const nextConfig: NextConfig = {
 
 export default withPWA({
   dest: "public",
-  disable: process.env.NODE_ENV === "development", // Disable in development to avoid continuous requests
+  disable: process.env.NODE_ENV === "development",
   register: true,
   workboxOptions: {
     disableDevLogs: true,
