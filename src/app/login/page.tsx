@@ -117,6 +117,16 @@ export default function LoginPage() {
                 회원가입하기
               </Link>
             </div>
+
+            {/* 임시 홈 이동 버튼 */}
+            <div className="text-center mt-6">
+              <Link
+                href="/home"
+                className="inline-block w-full py-3 px-6 bg-gray-500 hover:bg-gray-600 text-white font-medium text-lg rounded-xl transition-colors"
+              >
+                테스트용 홈으로 이동
+              </Link>
+            </div>
           </form>
         </div>
 
