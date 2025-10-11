@@ -38,7 +38,7 @@ export default function PhotoCapturePage() {
         video: {
           width: { ideal: 1280 },
           height: { ideal: 720 },
-          facingMode: 'user' // 전면 카메라 우선
+          facingMode: 'environment' // 후면 카메라 우선
         }
       });
 
