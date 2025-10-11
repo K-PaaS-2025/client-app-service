@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { auth } from "@/lib/auth";
+import { counselingAPI } from "@/api/counseling";
 
 export default function HomePage() {
   const router = useRouter();
@@ -11,14 +12,36 @@ export default function HomePage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // 테스트용 더미 데이터
-    const userData = {
-      email: "test@example.com",
-      loginTime: new Date().toISOString()
+    const checkConsultationAndSetup = async () => {
+      // 테스트용 더미 데이터
+      const userData = {
+        email: "test@example.com",
+        loginTime: new Date().toISOString()
+      };
+      setUser(userData);
+
+      // 초기상담 여부 확인 (테스트용 - API 서버 없을 시 바로 상담 페이지로)
+      try {
+        const response = await counselingAPI.checkCounselingStatus();
+        if (response.success && response.data) {
+          if (!response.data.hasInitialCounseling) {
+            // 초기상담이 안되어 있으면 상담 페이지로 리다이렉트
+            router.push("/counseling");
+            return;
+          }
+        }
+      } catch (error) {
+        console.error("Error checking counseling status:", error);
+        // API 서버가 없는 경우 테스트를 위해 상담 페이지로 이동
+        router.push("/counseling");
+        return;
+      }
+
+      setLoading(false);
     };
-    setUser(userData);
-    setLoading(false);
-  }, []);
+
+    checkConsultationAndSetup();
+  }, [router]);
 
   const handleLogout = () => {
     auth.logout();
@@ -91,6 +114,19 @@ export default function HomePage() {
 
         {/* 서비스 메뉴 */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+          <div
+            onClick={() => router.push('/counseling')}
+            className="bg-white rounded-3xl shadow-lg border border-amber-200 p-6 hover:shadow-xl transition-all duration-200 cursor-pointer transform hover:-translate-y-1"
+          >
+            <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-bold text-amber-900 text-center mb-2">AI 상담</h3>
+            <p className="text-amber-700 text-center">음성으로 AI 상담사와 대화하세요</p>
+          </div>
+
           <div className="bg-white rounded-3xl shadow-lg border border-amber-200 p-6 hover:shadow-xl transition-shadow cursor-pointer">
             <div className="w-16 h-16 bg-amber-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
               <svg className="w-8 h-8 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
