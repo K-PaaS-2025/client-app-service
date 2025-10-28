@@ -13,13 +13,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Client App Service",
-  description: "K-PaaS Client Application Service",
+  title: "토닥",
+  description: "토닥 - K-PaaS 클라이언트 애플리케이션",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Client App",
+    title: "토닥",
   },
   icons: {
     icon: [
@@ -27,8 +27,7 @@ export const metadata: Metadata = {
       { url: "/icon.svg", sizes: "any", type: "image/svg+xml" }
     ],
     apple: [
-      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
-      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" }
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }
     ],
     shortcut: "/icon.ico",
   },

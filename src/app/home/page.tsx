@@ -6,11 +6,10 @@ import Image from "next/image";
 
 export default function HomePage() {
   const router = useRouter();
-  const [user, setUser] = useState<{ email: string; loginTime?: string } | null>(null);
+  const [user, setUser] = useState<{ loginTime?: string } | null>(null);
 
   useEffect(() => {
     const userData = {
-      email: "test@example.com",
       loginTime: new Date().toISOString()
     };
     setUser(userData);
@@ -30,16 +29,15 @@ export default function HomePage() {
             <div className="flex items-center space-x-3">
               <Image
                 src="/icon.svg"
-                alt="Client App Service"
+                alt="토닥"
                 width={40}
                 height={40}
                 className="rounded-lg"
               />
-              <h1 className="text-xl font-bold text-amber-900">Client App Service</h1>
+              <h1 className="text-xl font-bold text-amber-900">토닥</h1>
             </div>
 
             <div className="flex items-center space-x-4">
-              <span className="text-amber-700 font-medium">{user?.email}</span>
               <button
                 onClick={handleLogout}
                 className="bg-amber-600 text-white px-4 py-2 rounded-xl hover:bg-amber-700 transition-colors font-medium"
@@ -58,7 +56,7 @@ export default function HomePage() {
           <div className="flex justify-center mb-6">
             <Image
               src="/icon.svg"
-              alt="Client App Service"
+              alt="토닥"
               width={80}
               height={80}
               className="rounded-2xl shadow-lg"
@@ -67,9 +65,6 @@ export default function HomePage() {
           <h2 className="text-3xl font-bold text-amber-900 mb-4">
             환영합니다!
           </h2>
-          <p className="text-xl text-amber-700 mb-2">
-            {user?.email}님
-          </p>
         </div>
 
         {/* 3개 버튼 */}
