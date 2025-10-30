@@ -214,7 +214,8 @@ export default function PhotoCapturePage() {
             />
           </div>
           <h1 className="text-3xl font-bold text-amber-900 mb-2">사진 찍기</h1>
-          <p className="text-lg text-amber-700">카메라로 사진을 촬영해보세요</p>
+          <p className="text-lg text-amber-700">강아지의 모습을 보여주세요</p>
+          <p className="text-lg text-amber-700">강아지의 말을 전달해드릴게요</p>
         </div>
 
         {/* 카메라 및 사진 표시 영역 */}
@@ -322,12 +323,13 @@ export default function PhotoCapturePage() {
         </div>
 
         {/* 하단 버튼 */}
-        <div className="text-center">
+        <div className="flex justify-center">
           <button
             onClick={() => router.push("/home")}
-            className="text-amber-600 hover:text-amber-700 font-medium text-lg underline transition-colors"
+            className="flex items-center gap-3 px-4 py-2 rounded-full bg-amber-500 hover:bg-amber-600 transition-colors"
           >
-            홈으로 돌아가기
+            <Image src="/icon.svg" alt="홈" width={24} height={24} className="rounded-lg" />
+            <span className="text-base font-semibold text-white">Home</span>
           </button>
         </div>
 

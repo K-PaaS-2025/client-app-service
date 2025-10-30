@@ -25,8 +25,8 @@ export default function LoginPage() {
               className="rounded-2xl shadow-lg"
             />
           </div>
-          <h1 className="text-3xl font-bold text-amber-900 mb-2">로그인</h1>
-          <p className="text-lg text-amber-700">안전하고 편리한 서비스를 이용하세요</p>
+          <h1 className="text-3xl font-bold text-amber-900 mb-2">Login</h1>
+          <p className="text-sm text-amber-700">사람과 동물이 함께 토닥이는 세상</p>
         </div>
 
         {/* 로그인 폼 */}

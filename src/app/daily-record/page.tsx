@@ -122,7 +122,8 @@ export default function DailyRecordPage() {
             />
           </div>
           <h1 className="text-3xl font-bold text-amber-900 mb-2">오늘 하루 기록하기</h1>
-          <p className="text-lg text-amber-700">음성으로 하루를 기록해보세요</p>
+          <p className="text-lg text-amber-700">오늘 강아지와 어떤 하루를 보냈는지 들려주세요</p>
+          <p className="text-lg text-amber-700">친구와 이야기하듯 편하게 말해볼까요?</p>
         </div>
 
         {/* 상태 표시 */}
@@ -227,9 +228,10 @@ export default function DailyRecordPage() {
 
             <button
               onClick={() => router.push("/home")}
-              className="w-full text-amber-600 hover:text-amber-700 font-medium text-lg underline transition-colors"
+              className="w-full flex items-center justify-center gap-3 px-4 py-2 rounded-full bg-amber-500 hover:bg-amber-600 transition-colors"
             >
-              홈으로 돌아가기
+              <Image src="/icon.svg" alt="홈" width={24} height={24} className="rounded-lg" />
+              <span className="text-base font-semibold text-white">Home</span>
             </button>
           </div>
         </div>
