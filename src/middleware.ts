@@ -6,7 +6,7 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Public routes that don't require authentication
-  const publicRoutes = ['/login', '/signup', '/', '/home', '/counseling', '/daily-record', '/photo-capture'];
+  const publicRoutes = ['/login', '/signup', '/', '/home', '/counseling', '/daily-record', '/photo-capture', '/animal-letter'];
 
   // Static files and API routes
   if (

@@ -125,9 +125,12 @@ export default function HomePage() {
 
           {/* 질문 라벨 */}
           <div className="mt-8">
-            <div className="w-full text-center text-amber-900/90 font-semibold bg-white/60 rounded-2xl py-3">
+            <button
+              onClick={() => router.push("/animal-letter")}
+              className="w-full text-center text-amber-900/90 font-semibold bg-white/60 hover:bg-white/80 rounded-2xl py-3 transition-colors cursor-pointer"
+            >
               오늘 하루는 어떠셨나요?
-            </div>
+            </button>
           </div>
 
           {/* 버튼 3개 */}
